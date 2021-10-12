@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Transcoder2 {
-
-    String key = "CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c";
     char[] keyAsChars;
+    String key = "CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c";
     HashMap<Character, String> encode = new HashMap<Character, String>();
     HashMap<String, Character> decode = new HashMap<String, Character>();
 
@@ -51,22 +50,15 @@ public class Transcoder2 {
                 two++;
             }
 
-            /*
-            System.out.println("___________________________________________________");
-            System.out.println("i : "+i);
-            System.out.println("first time : "+firstLetter);
-            System.out.println("one : "+one);
-            System.out.println("two : "+two);
-            System.out.println("caractere : "+keyAsChars[i]);
-            System.out.println("deux lettres : "+Character.toString(one)+Character.toString(two));
-            */
-
             firstLetter = false;
             encode.put(keyAsChars[i], Character.toString(one)+Character.toString(two));
             decode.put(Character.toString(one)+Character.toString(two), keyAsChars[i]);
 
         }
-        //System.out.println("tab encode : "+encode);
-        //System.out.println("tab decode : "+decode);
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+        init();
     }
 }
