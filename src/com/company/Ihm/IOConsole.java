@@ -1,5 +1,8 @@
 package com.company.Ihm;
 
+import com.company.Controllers.MessageController;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class IOConsole {
@@ -13,27 +16,6 @@ public class IOConsole {
         System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════╝");
 
             choice = scanner.nextInt();
-
-
-        return choice;
-    }
-
-    public int askForTask(String msg) {
-        int choice;
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("");
-        System.out.println("              ?");
-        System.out.println("       , ___?");
-        System.out.println("     `\\/{O,o}");
-        System.out.println("      / /)  )");
-        System.out.println("     /,--\"-\"-");
-        System.out.println(msg);
-        System.out.println("");
-        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║ Vous voulez : '1' decrypter un message, '2' crypter un message, '0' quitter le programme ? ║");
-        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════╝");
-        choice = scanner.nextInt();
 
         return choice;
     }
@@ -62,13 +44,14 @@ public class IOConsole {
         return key;
     }
 
-    public void displayAfterEncryption(String original, String encode, String encrypted) {
+    public void displayAfterEncryption(String original, String encode, String encrypted, String decrypted) {
         System.out.println("╔════════════╗");
         System.out.println("║ Résultat : ║");
         System.out.println("╚════════════╝");
         System.out.println("Message original : "+original);
         System.out.println("Message encodé : "+encode);
-        System.out.println("Message crypté : "+encrypted);
+        System.out.println("Clef cryptée : "+encrypted);
+        System.out.println("Clef décryptée : "+decrypted);
         System.out.println("");
     }
 
@@ -80,5 +63,15 @@ public class IOConsole {
         System.out.println("╔══════════════════════════╗");
         System.out.println("║ A plus tard sur TINACC ! ║");
         System.out.println("╚══════════════════════════╝");
+    }
+
+    public void owlala(String msg) {
+        System.out.println("");
+        System.out.println("              ?");
+        System.out.println("       , ___?");
+        System.out.println("     `\\/{O,o}");
+        System.out.println("      / /)  )");
+        System.out.println("     /,--\"-\"-");
+        System.out.println(msg);
     }
 }

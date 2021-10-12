@@ -4,10 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Message {
     String originalMessage;
-    String encryptedString;
-    String decryptedString;
-    String encodedString;
-    String DecodedString;
+    String encodedMessage;
+    String decryptedKey;
+    String encryptedKey;
 
     public String getOriginalMessage() {
         return originalMessage;
@@ -17,35 +16,27 @@ public class Message {
         this.originalMessage = StringUtils.stripAccents(originalMessage);
     }
 
-    public String getEncryptedString() {
-        return encryptedString;
+    public String getEncodedMessage() {
+        return encodedMessage;
     }
 
-    public void setEncryptedString(String encryptedString) {
-        this.encryptedString = encryptedString;
+    public void setEncodedMessage(String encodedMessage) {
+        this.encodedMessage = encodedMessage;
     }
 
-    public String getDecryptedString() {
-        return decryptedString;
+    public String getDecryptedKey() {
+        return decryptedKey;
     }
 
-    public void setDecryptedString(String decryptedString) {
-        this.decryptedString = decryptedString;
+    public void setDecryptedKey(String decryptedKey) {
+        this.decryptedKey = decryptedKey;
     }
 
-    public String getEncodedString() {
-        return encodedString;
+    public String getEncryptedKey() {
+        return encryptedKey;
     }
 
-    public void setEncodedString(String encodedString) {
-        this.encodedString = encodedString;
-    }
-
-    public String getDecodedString() {
-        return DecodedString;
-    }
-
-    public void setDecodedString(String decodedString) {
-        DecodedString = decodedString;
+    public void setEncryptedKey(String encryptedKey) {
+        this.encryptedKey = encryptedKey;
     }
 }
