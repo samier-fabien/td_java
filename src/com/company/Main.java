@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         splashScreen();
         MessageController app = new MessageController();
-        //System.out.println(ManaBox.decrypt("6Qe0IsEEH1utWRe7UKzGMiDTy"));
+        app.testWrite();
     }
 
     public static void splashScreen() {

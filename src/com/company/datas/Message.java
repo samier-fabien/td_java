@@ -2,27 +2,14 @@ package com.company.datas;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message {
-    String originalMessage;
-    String encodedMessage;
     String decryptedKey;
     String encryptedKey;
-
-    public String getOriginalMessage() {
-        return originalMessage;
-    }
-
-    public void setOriginalMessage(String originalMessage) {
-        this.originalMessage = StringUtils.stripAccents(originalMessage);
-    }
-
-    public String getEncodedMessage() {
-        return encodedMessage;
-    }
-
-    public void setEncodedMessage(String encodedMessage) {
-        this.encodedMessage = encodedMessage;
-    }
+    List<String> fOriginalMessage = new ArrayList<String>();
+    List<String> fEncodedMessage = new ArrayList<String>();
 
     public String getDecryptedKey() {
         return decryptedKey;
@@ -38,5 +25,13 @@ public class Message {
 
     public void setEncryptedKey(String encryptedKey) {
         this.encryptedKey = encryptedKey;
+    }
+
+    public List<String> getfOriginalMessage() {
+        return fOriginalMessage;
+    }
+
+    public List<String> getfEncodedMessage() {
+        return fEncodedMessage;
     }
 }

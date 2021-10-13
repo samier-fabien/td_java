@@ -11,7 +11,7 @@ public class Transcoder2 {
 
     public Transcoder2() {
         keyAsChars = key.toCharArray();
-        init();
+        init("CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c");
     }
 
     public String encode(String str) {
@@ -36,7 +36,7 @@ public class Transcoder2 {
         return result;
     }
 
-    public void init() {
+    public void init(String key) {
         Character one = 'A', two = 'A';
         boolean firstLetter = true;
 
@@ -55,10 +55,5 @@ public class Transcoder2 {
             decode.put(Character.toString(one)+Character.toString(two), keyAsChars[i]);
 
         }
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-        init();
     }
 }

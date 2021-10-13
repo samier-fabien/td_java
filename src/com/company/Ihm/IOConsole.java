@@ -11,9 +11,9 @@ public class IOConsole {
         int choice;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║ Vous voulez : '1' decrypter un message, '2' crypter un message, '0' quitter le programme ? ║");
-        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════╝");
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Vous voulez :  decrypter un message (1), crypter un message (2), quitter le programme (0) ? ║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════╝");
 
             choice = scanner.nextInt();
 
@@ -33,13 +33,18 @@ public class IOConsole {
     }
 
     public String askForKey() {
-        String key;
+        String key = new String();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println("║ Veuillez saisir une clé d'encodage, cette clé doit contenir tous les caractères à encoder dans n'importe quel ordre : ║");
         System.out.println("╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
-        key = scanner.next();
+        try {
+            key = scanner.nextLine();
+        } catch (IllegalArgumentException e) {
+            owlala(MessageController.CLEFPASBONNE);
+            System.exit(0);
+        }
 
         return key;
     }
@@ -73,5 +78,49 @@ public class IOConsole {
         System.out.println("      / /)  )");
         System.out.println("     /,--\"-\"-");
         System.out.println(msg);
+    }
+
+    public int askForMethod() {
+        int method;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Voulez vous utiliser le programme avec la console (0) ou à partir de fichiers texte (1) ?");
+        method = scanner.nextInt();
+
+        return method;
+    }
+
+    public String askForPathToDecoded() {
+        String path;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte décodé :");
+        path = scanner.nextLine();
+
+        return path;
+    }
+
+    public String askForPathToEncoded() {
+        String path;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte encodé :");
+        path = scanner.nextLine();
+
+        return path;
+    }
+
+    public String askForPathToKey() {
+        String path;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra la clef :");
+        path = scanner.next();
+
+        return path;
+    }
+
+    public void displaySuccess() {
+        System.out.println("Succès ! Vous trouverez le résultat dans les différents fichiers que vous avez spécifié.");
     }
 }
