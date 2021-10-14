@@ -3,59 +3,55 @@ package com.company.tools;
 import java.util.HashMap;
 
 public class Transcoder {
-    String key = "CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c";//manque j X
-    char[] characters;
-    char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    HashMap<String, Character> tab = new HashMap<String, Character>();
+    char[] keyAsChars;
+    String key;
+    HashMap<Character, String> encode = new HashMap<Character, String>();
+    HashMap<String, Character> decode = new HashMap<String, Character>();
 
+    public Transcoder() {}
 
-    //char[] tab = msg.toCharArray();
+    public String encode(String str) {
+        String result = new String("");
+        char[] strAsChars = str.toCharArray();
 
-    public Transcoder() {
-        generate(key);
+        for (Character character : strAsChars) {
+            result = result+encode.get(character);
+        }
+
+        return result;
     }
 
-    public Transcoder(String key) {
+    public String decode(String str) {
+        String result = new String("");
+        String[] strAsStrings = str.split("(?<=\\G.{2})");
+
+        for (String string : strAsStrings) {
+            result = result+decode.get(string);
+        }
+
+        return result;
+    }
+
+    public void init(String key) {
         this.key = key;
-        generate(this.key);
-    }
+        keyAsChars = this.key.toCharArray();
 
-    public String encode(String msg) {
+        Character one = 'A', two = 'A';
+        boolean firstLetter = true;
 
-        return msg;
-    }
+        for (int i = 0; i < key.length(); i++) {
+            if (two == 'Z') {
+                one++;
+                two = 'A';
+                firstLetter = true;
+            }
+            if (!firstLetter) {
+                two++;
+            }
 
-    public String decode(String msg) {
-
-        return msg;
-    }
-
-    public void generate(String msg) {
-        this.characters = msg.toCharArray();
-        int currentFirst = 0;
-        int currentSecond = 0;
-
-        for (int i = 0; i<characters.length; i++) {
-            System.out.println(characters[i]);
+            firstLetter = false;
+            encode.put(keyAsChars[i], Character.toString(one)+Character.toString(two));
+            decode.put(Character.toString(one)+Character.toString(two), keyAsChars[i]);
         }
-
-        for (int i = 0; i<characters.length; i++) {
-
-            currentFirst = i/letters.length;
-            currentSecond = i - currentFirst*letters.length;
-            //System.out.println("premier : "+ currentFirst +" second : "+ (i - currentFirst*letters.length));
-
-            addToTab(Character.toString(letters[currentFirst])+Character.toString(letters[currentSecond]), characters[i]);
-        }
-
-
-        for (char i : tab.values()) {
-            System.out.println(i);
-        }
-        System.out.println(tab);
-    }
-
-    public void addToTab(String string, Character character) {
-        tab.put(string, character);
     }
 }

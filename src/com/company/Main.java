@@ -1,12 +1,6 @@
 package com.company;
 
 import com.company.Controllers.MessageController;
-import com.company.tools.Transcoder;
-import com.company.tools.Transcoder2;
-import org.apache.commons.lang3.StringUtils;
-import org.germain.tool.ManaBox;
-
-import java.awt.*;
 
 public class Main {
 

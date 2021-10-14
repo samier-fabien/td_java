@@ -2,7 +2,7 @@ package com.company.Ihm;
 
 import com.company.Controllers.MessageController;
 
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
 public class IOConsole {
@@ -60,10 +60,6 @@ public class IOConsole {
         System.out.println("");
     }
 
-    public void displayMessage(String msg) {
-        System.out.println(msg);
-    }
-
     public void sayGoodbye(){
         System.out.println("╔══════════════════════════╗");
         System.out.println("║ A plus tard sur TINACC ! ║");
@@ -71,13 +67,12 @@ public class IOConsole {
     }
 
     public void owlala(String msg) {
-        System.out.println("");
-        System.out.println("              ?");
-        System.out.println("       , ___?");
+        System.out.println("                   "+msg);
+        System.out.println("               ?");
+        System.out.println("       , ___ ?");
         System.out.println("     `\\/{O,o}");
         System.out.println("      / /)  )");
         System.out.println("     /,--\"-\"-");
-        System.out.println(msg);
     }
 
     public int askForMethod() {
@@ -129,8 +124,8 @@ public class IOConsole {
     }
 
     public void displaySuccess() {
-        System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║ Succès ! Vous trouverez le résultat dans les différents fichiers. ║");
-        System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
+        System.out.println("▄▄█████████████████████████████─ Succès !");
+        System.out.println("▀▀▀───▀█▄▀▄▀████▀──▀█▄▀▄▀████▀── Vous trouverez le résultat");
+        System.out.println("────────▀█▄█▄█▀──────▀█▄█▄█▀──── dans les différents fichiers.");
     }
 }

@@ -2,13 +2,12 @@ package com.company.Controllers;
 
 import com.company.Ihm.IOConsole;
 import com.company.datas.Message;
-import com.company.tools.Transcoder2;
+import com.company.tools.Transcoder;
 import org.apache.commons.lang3.StringUtils;
 import org.germain.tool.ManaBox;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.InputMismatchException;
 import java.lang.IllegalArgumentException;
@@ -22,7 +21,7 @@ public class MessageController {
 
     Message message = null;//new Message();
     IOConsole view = new IOConsole();
-    Transcoder2 transcoder = new Transcoder2();
+    Transcoder transcoder = new Transcoder();
     boolean method = true;
     Path pathToDecoded;
     Path pathToEncoded;
@@ -31,7 +30,7 @@ public class MessageController {
     public MessageController() {
         //Message message = new Message();
         IOConsole view = new IOConsole();
-        Transcoder2 transcoder = new Transcoder2();
+        Transcoder transcoder = new Transcoder();
         init();
     }
 
@@ -59,6 +58,7 @@ public class MessageController {
         chooseMethod();
         if (method) {
             encryptKey();
+            transcoder.init(message.getDecryptedKey());
             message.getOriginalMessage().add(view.askForMessage());
             message.getEncodedMessage().add(transcoder.encode(message.getOriginalMessage().get(0)));
             view.displayAfterEncryption(message.getOriginalMessage().get(0), message.getEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
@@ -67,6 +67,7 @@ public class MessageController {
             setPathToEncoded();
             setPathToKey();
             encryptKey();
+            transcoder.init(message.getDecryptedKey());
 
             try {
                 message.setOriginalMessage(Files.readAllLines(pathToDecoded));
@@ -90,6 +91,7 @@ public class MessageController {
         chooseMethod();
         if (method) {
             decryptKey();
+            transcoder.init(message.getDecryptedKey());
             message.getEncodedMessage().add(view.askForMessage());
             message.getOriginalMessage().add(transcoder.decode(message.getEncodedMessage().get(0)));
             view.displayAfterEncryption(message.getOriginalMessage().get(0), message.getEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
@@ -98,6 +100,7 @@ public class MessageController {
             setPathToEncoded();
             setPathToKey();
             decryptKey();
+            transcoder.init(message.getDecryptedKey());
 
             try {
                 message.setEncodedMessage(Files.readAllLines(pathToEncoded));
