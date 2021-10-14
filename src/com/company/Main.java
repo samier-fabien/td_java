@@ -13,7 +13,14 @@ public class Main {
     public static void main(String[] args) {
         splashScreen();
         MessageController app = new MessageController();
-        app.testWrite();
+
+        /*
+        /home/magash/test/decoded.txt
+        /home/magash/test/encoded.txt
+        /home/magash/test/key.txt
+        CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c
+        6Qe0IsEEH1utWRe7UKzGMiDTytOB3HS1dEfIB4imna3IRHXHRn5ZrvKFEcPjmPgKYGuytG+gDAl1m2DdHalJQg==
+         */
     }
 
     public static void splashScreen() {

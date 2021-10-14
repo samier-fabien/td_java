@@ -6,9 +6,7 @@ import com.company.tools.Transcoder2;
 import org.apache.commons.lang3.StringUtils;
 import org.germain.tool.ManaBox;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -34,7 +32,7 @@ public class MessageController {
         //Message message = new Message();
         IOConsole view = new IOConsole();
         Transcoder2 transcoder = new Transcoder2();
-        //init();
+        init();
     }
 
     public void init() {
@@ -61,27 +59,27 @@ public class MessageController {
         chooseMethod();
         if (method) {
             encryptKey();
-            message.getfOriginalMessage().add(view.askForMessage());
-            message.getfEncodedMessage().add(transcoder.encode(message.getfOriginalMessage().get(0)));
-            view.displayAfterEncryption(message.getfOriginalMessage().get(0), message.getfEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
+            message.getOriginalMessage().add(view.askForMessage());
+            message.getEncodedMessage().add(transcoder.encode(message.getOriginalMessage().get(0)));
+            view.displayAfterEncryption(message.getOriginalMessage().get(0), message.getEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
         } else {
             setPathToDecoded();
             setPathToEncoded();
             setPathToKey();
             encryptKey();
 
-            lookForKey(message.getDecryptedKey(), pathToKey);
-            System.out.println(message.getDecryptedKey());
-
-            fillList(message.getfOriginalMessage(), pathToEncoded);
-            for (String line : message.getfOriginalMessage()) {
-                message.getfEncodedMessage().add(transcoder.encode(StringUtils.stripAccents(line)));
+            try {
+                message.setOriginalMessage(Files.readAllLines(pathToDecoded));
+            } catch (IOException e) {
+                view.owlala(e.getMessage());
             }
-            System.out.println("**************DONNEES:***************");
-            System.out.println(message.getfOriginalMessage().toString());
-            System.out.println(message.getfEncodedMessage().toString());
 
-            write(message.getfEncodedMessage(), pathToEncoded);
+            for (String line : message.getOriginalMessage()) {
+                message.getEncodedMessage().add(transcoder.encode(StringUtils.stripAccents(line)));
+            }
+
+            write(message.getEncodedMessage(), pathToEncoded);
+            write(message.getEncryptedKey(), pathToKey);
 
             view.displaySuccess();
         }
@@ -92,18 +90,29 @@ public class MessageController {
         chooseMethod();
         if (method) {
             decryptKey();
-            message.getfEncodedMessage().add(view.askForMessage());
-            message.getfOriginalMessage().add(transcoder.decode(message.getfEncodedMessage().get(0)));
-            view.displayAfterEncryption(message.getfOriginalMessage().get(0), message.getfEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
+            message.getEncodedMessage().add(view.askForMessage());
+            message.getOriginalMessage().add(transcoder.decode(message.getEncodedMessage().get(0)));
+            view.displayAfterEncryption(message.getOriginalMessage().get(0), message.getEncodedMessage().get(0), message.getEncryptedKey(), message.getDecryptedKey());
         } else {
             setPathToDecoded();
             setPathToEncoded();
             setPathToKey();
+            decryptKey();
 
-            lookForKey(message.getDecryptedKey(), pathToKey);
-            System.out.println(message.getDecryptedKey());
+            try {
+                message.setEncodedMessage(Files.readAllLines(pathToEncoded));
+            } catch (IOException e) {
+                view.owlala(e.getMessage());
+            }
 
-            fillList(message.getfEncodedMessage(), pathToDecoded);
+            for (String line : message.getEncodedMessage()) {
+                message.getOriginalMessage().add(transcoder.decode(StringUtils.stripAccents(line)));
+            }
+
+            write(message.getOriginalMessage(), pathToDecoded);
+            write(message.getDecryptedKey(), pathToKey);
+
+            view.displaySuccess();
         }
     }
 
@@ -112,10 +121,10 @@ public class MessageController {
 
         if (!key.equals("")) {
             message.setDecryptedKey(key);
-            transcoder.init(key);
         } else {
             message.setDecryptedKey("CFfrkowl.aDzyS:eHjsGPZgMApWvRYVmtnK!BuU IQiEXTxbqhLdNJO,'c");
         }
+        transcoder.init(message.getDecryptedKey());
         message.setEncryptedKey(ManaBox.encrypt(message.getDecryptedKey()));
     }
 
@@ -198,26 +207,6 @@ public class MessageController {
         } while (encore);
     }
 
-    public void fillList(List<String> list, Path path) {
-        try {
-            list = Files.readAllLines(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (String line : list) {
-            System.out.println(line);
-        }
-    }
-
-    public void lookForKey(String key, Path path) {
-        try {
-            key = String.valueOf(Files.readAllLines(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void write(List<String> liste, Path path) {
         for (String line : liste) {
             try {
@@ -229,24 +218,12 @@ public class MessageController {
         }
     }
 
-    public void testWrite() {
-        List<String> liste = new ArrayList<String>();
-        liste.add("Petite phrase");
-        liste.add("Deuxieme phrase");
-        liste.add("derniere phrase");
-
-        String givenPath = "/home/magash/test/key.txt";
-        Path path = Paths.get(givenPath);
-
-
-        for (String line : liste) {
-            try {
-                Files.writeString(path, line+System.lineSeparator(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                System.out.println("Ca marche");
-            } catch (IOException e) {
-                System.out.println("Ca marche pas");
-            }
+    public void write(String str, Path path) {
+        try {
+            Files.writeString(path, str, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            view.owlala(IOPROBLEME);
+            return;
         }
-
     }
 }

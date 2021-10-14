@@ -84,7 +84,9 @@ public class IOConsole {
         int method;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Voulez vous utiliser le programme avec la console (0) ou à partir de fichiers texte (1) ?");
+        System.out.println("╔═══════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Voulez vous utiliser le programme avec la console (0) ou à partir de fichiers texte (1) ? ║");
+        System.out.println("╚═══════════════════════════════════════════════════════════════════════════════════════════╝");
         method = scanner.nextInt();
 
         return method;
@@ -94,7 +96,9 @@ public class IOConsole {
         String path;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte décodé :");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte décodé : ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════╝");
         path = scanner.nextLine();
 
         return path;
@@ -104,7 +108,9 @@ public class IOConsole {
         String path;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte encodé :");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Veuillez saisir le chemin du fichier contenant ou qui contiendra le texte encodé : ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════╝");
         path = scanner.nextLine();
 
         return path;
@@ -114,13 +120,17 @@ public class IOConsole {
         String path;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Veuillez saisir le chemin du fichier contenant ou qui contiendra la clef :");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Veuillez saisir le chemin du fichier contenant ou qui contiendra la clef : ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════╝");
         path = scanner.next();
 
         return path;
     }
 
     public void displaySuccess() {
-        System.out.println("Succès ! Vous trouverez le résultat dans les différents fichiers que vous avez spécifié.");
+        System.out.println("╔═══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║ Succès ! Vous trouverez le résultat dans les différents fichiers. ║");
+        System.out.println("╚═══════════════════════════════════════════════════════════════════╝");
     }
 }
